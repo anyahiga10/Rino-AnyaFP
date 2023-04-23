@@ -9,6 +9,7 @@ Story Pitch
   This angle is important to note as technology is increasingly playing a bigger role in youth education. Updating curriculum in school systems at the speed of the internet is not realistic. However, increased access to ICT isn't necessarily the end of it either. With even more access to ICT, people, more specifically adolescence, will be more likely to be able to identify trustworthy educational resources with a stronger internet literacy. This idea of the importance of online information about abortions or other sexual health and trustworthiness is highlighted in an article written post overturning of Roe v. Wade. According to North Jersey Media Group, “‘Online information will become a great resource even more heavily than it is today as states ban abortion,’ said Corey Basch, a professor of public health and the department chair at William Paterson University. However, they then follow up with the fact that the potential risks of prosecution across states, as “online platforms could [promote] false or conflicting medical and legal advice”, and the use of digital records to take legal action could still be prevalent.
   Overall, our project has the potential to contribute to a deeper understanding of the sexual and reproductive health in adolescents. A potential correlation between the two would highlight the importance of utilizing technology and the internet to promote greater autonomy for female adolescents seeking to exercise their sexual and reproductive health rights. With our findings, policymakers, healthcare providers, and other stakeholders working to improve sexual and reproductive health outcomes for adolescent females worldwide could make larger advancements in reducing these inequalities.
 
+
 Finding Data
 
 [Adding It Up: Investing in Sexual and Reproductive Health 2019 - Methodology Report Supplementary Materials](https://osf.io/nmf8k/?view_only=)
@@ -24,6 +25,7 @@ Finding Data
 - Observations: 14941
 - Features: 24
 - This dataset contains data sourced from a couple of sources. Including but not limited to, demographic and health surveys, the Global Findex database, UNESCO Institute for Statistics, International Monetary Fund, International Financial Statistics and data files., World Bank national accounts data, and OECD National Accounts data files., World Bank national accounts data, and OECD National Accounts data files., UNESCO Institute for Statistics (UIS). UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene."
+
 
 Background Research/Inspiration
 

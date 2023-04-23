@@ -12,6 +12,7 @@ Finding Data
 
 
 Background Research/Inspiration
+
 [A Time for Change: Advancing Sexual and Reproductive Health and Rights in a New Global Era](https://www.guttmacher.org/gpr/2021/02/time-change-advancing-sexual-and-reproductive-health-and-rights-new-global-era)
 - This article focuses more on the impacts of the politics (Biden-Harris/ Trump-Pence administration and other donor governments, multilateral institutions, low- and middle-income country (LMIC) governments, and civil society organizations)
 - Talks a lot about the pre-pandemic, pandemic, and post pandemic state of reproductive healthcare and the impact of COVID-19

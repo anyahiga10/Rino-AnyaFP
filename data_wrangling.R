@@ -1,3 +1,5 @@
+library(stringr)
+library(dplyr)
 #merging
 
 #internet data frames
@@ -9,6 +11,23 @@ umpi_pay_bills_df <- read.csv("Used a mobile phone or the internet to pay bills 
 
 #adolescent data frame
 adolescent_df <- read.csv("AIU Adolescent Dataset.csv")
+
+#get only female population
+account_ownership_df <- account_ownership_df[str_detect(account_ownership_df$Indicator.Name, "female") == TRUE,]
+made_recieved_digital_payments_df <- made_recieved_digital_payments_df[str_detect(made_recieved_digital_payments_df$Indicator.Name, "female") == TRUE,]
+umpi_access_account_df <- umpi_access_account_df[str_detect(umpi_access_account_df$Indicator.Name, "female") == TRUE,]
+umpi_buy_something_online_df <- umpi_buy_something_online_df[str_detect(umpi_buy_something_online_df$Indicator.Name, "female") == TRUE,]
+umpi_pay_bills_df <- umpi_pay_bills_df[str_detect(umpi_pay_bills_df$Indicator.Name, "female") == TRUE,]
+
+#get only 2017 years
+account_ownership_df_clean <- account_ownership_df[account_ownership_df$Year == 2017,]
+made_recieved_digital_payments_df_clean <- made_recieved_digital_payments_df[made_recieved_digital_payments_df$Year == 2017,]
+umpi_access_account_df_clean <- umpi_access_account_df[umpi_access_account_df$Year == 2017,]
+umpi_buy_something_online_df_clean <- umpi_buy_something_online_df[umpi_buy_something_online_df$Year == 2017,]
+umpi_pay_bills_df_clean <- umpi_pay_bills_df[umpi_pay_bills_df$Year == 2017,]
+
+#merge by country
+adolescent_internet_df <- merge(account_ownership_df_clean, made_recieved_digital_payments_df_clean, by = "Country.Name")
 
 #cleaning
 

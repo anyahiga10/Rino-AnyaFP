@@ -1,3 +1,6 @@
+library(stringr)
+library(dplyr)
+
 #merging
 
 #internet data frames
@@ -11,6 +14,7 @@ umpi_pay_bills_df <- read.csv("Used a mobile phone or the internet to pay bills 
 adolescent_df <- read.csv("AIU Adolescent Dataset.csv")
 
 #cleaning
+
 
 #augmentation
 #Must create at least one new categorical variable 

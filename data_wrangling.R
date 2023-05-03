@@ -1,5 +1,9 @@
 library(stringr)
 library(dplyr)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 57d5c8545d7c4faf7b121838d4f2e35c18b8bd64
 #merging
 
 #internet data frames
@@ -30,6 +34,7 @@ umpi_pay_bills_df_clean <- umpi_pay_bills_df[umpi_pay_bills_df$Year == 2017,]
 adolescent_internet_df <- merge(account_ownership_df_clean, made_recieved_digital_payments_df_clean, by = "Country.Name")
 
 #cleaning
+
 
 #augmentation
 #Must create at least one new categorical variable 

@@ -30,7 +30,7 @@
 - Observations: 14941
 - Features: 24
 - This dataset is compiled of multiple indicators that assesses female access to technology through online accounts across a multitude of countries.
-- This dataset contains data sourced from a couple of sources. Including but not limited to, demographic and health surveys, the Global Findex database, UNESCO Institute for Statistics, International Monetary Fund, International Financial Statistics and data files., World Bank national accounts data, and OECD National Accounts data files., World Bank national accounts data, and OECD National Accounts data files., UNESCO Institute for Statistics (UIS). UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene."
+- This dataset contains data sourced from a couple of sources. Including but not limited to, demographic and health surveys, the Global Findex database, UNESCO Institute for Statistics, International Monetary Fund, International Financial Statistics and data files., World Bank national accounts data, and OECD National Accounts data files., UNESCO Institute for Statistics (UIS). UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene."
 
 
 ### Background Research/Inspiration

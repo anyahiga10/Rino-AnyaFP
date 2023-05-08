@@ -195,3 +195,5 @@ extracted_df <- adolescent_technology_df[, c("Country.Name", "avg_technology", "
                                              "a_facility_delivery_yes",
                                              "a_facility_delivery_no")]
 
+#export to csv
+write.csv(adolescent_technology_df, "C:\\Users\\anyah\\OneDrive\\Desktop\\info 201\\Final Project\\Rino-AnyaFP\\adolescent_technology_df.csv", row.names=TRUE)

@@ -10,7 +10,7 @@ adolescent_df <- read.csv("AIU Adolescent Dataset.csv")
 #rename the column name to match the internet df
 colnames(adolescent_df)[1] <- "Country.Name"
 #remove unnecessary / no data columns 
-adolescent_df <- subset(adolescent_df, select = -c(a_data_source_year, a_region, a_subregion, a_iso_numeric, a_ipreg_abortion))
+adolescent_df <- subset(adolescent_df, select = -c(a_data_source_year, a_subregion, a_iso_numeric, a_ipreg_abortion))
 
 
 #cleaning technology dataframe
@@ -189,9 +189,73 @@ adolescent_technology_df$autonomy_levels <- ifelse(adolescent_technology_df$avg_
 
 #Must create at least one summarization data frame
 #extracted df for summarized variables
-extracted_df <- adolescent_technology_df[, c("Country.Name", "avg_technology", "autonomy_levels", "a_pct_upreg", "a_pct_matdeaths_unsafeabs", "a_rate_matdeaths", "pct_mod_inneed", "pct_trad_inneed", 
+extracted_df <- adolescent_technology_df[, c("Country.Name", "a_region", "avg_technology", "autonomy_levels", "a_pct_upreg", "a_pct_matdeaths_unsafeabs", "a_rate_matdeaths", "pct_mod_inneed", "pct_trad_inneed", 
                                              "a_anc_less4",
                                              "a_anc_4plus",
                                              "a_facility_delivery_yes",
                                              "a_facility_delivery_no")]
+
+#box plot : constrast
+box_plt <- ggplot(extracted_df, aes(x = autonomy_levels, y = pct_mod_inneed)) +
+          geom_boxplot() 
+  #        geom_text(aes(label = ifelse(a_pct_upreg >= 0.6, Country.Name, "")))
+
+#plot(box_plt)
+
+# scatter1 <- ggplot(extracted_df, aes(x = avg_technology, y = pct_mod_inneed)) + 
+#           geom_point(aes(col = a_region)) +
+#           geom_text(aes(label = ifelse(pct_mod_inneed >= 75 | avg_technology >= 40, Country.Name, "")))
+# plot(scatter1)
+# 
+# scatter2 <- ggplot(extracted_df, aes(x = avg_technology, y = a_pct_matdeaths_unsafeabs)) +
+#   geom_point(aes(col = a_region)) +
+#   geom_text(aes(label = ifelse(a_pct_matdeaths_unsafeabs >= 0.2 | avg_technology >= 40, Country.Name, "")))
+# plot(scatter2)
+# 
+
+# scatterplot : outlier
+
+# scatter3 <- ggplot(adolescent_technology_df, aes(x = avg_technology, y = a_pct_matdeaths_unsafeabs)) +
+#   geom_point(aes(col = a_region)) +
+#   geom_text(aes(label = ifelse(a_pct_matdeaths_unsafeabs >= 0.2 | avg_technology >= 40, Country.Name, "")))
+# 
+# plot(scatter3)
+
+
+# world_shape <- map_data("world")
+# map <- ggplot(world_shape) +
+#        geom_polygon(
+#          mapping = aes(x = long, y = lat, group = group),
+#          color = "white", 
+#          linewidth = .1
+#        ) +
+#       coord_map()
+# 
+# plot(map)
+
+# visits to anc by region violin plot
+
+violin <- ggplot(extracted_df, aes(x = autonomy_levels, y = a_pct_upreg, fill = autonomy_levels)) +
+          geom_violin()
+
+#plot(violin)
+
+africa_filter <- extracted_df[extracted_df$a_region == "Africa", ]
+africa_scatter <- ggplot(africa_filter, aes(x = avg_technology, y = a_rate_matdeaths)) +
+                  geom_point()
+
+#plot(africa_scatter)
+
+africa_bar <- ggplot(africa_filter, aes(x = reorder(Country.Name, a_rate_matdeaths), y = a_rate_matdeaths)) +
+              geom_bar(stat = "identity") +
+              geom_text(aes(label = ifelse(a_rate_matdeaths > 500, Country.Name, "")))
+
+plot(africa_bar)
+
+asia_filter <- extracted_df[extracted_df$a_region == "Asia", ]
+asia_bar <- ggplot(asia_filter, aes(x = reorder(Country.Name, a_rate_matdeaths), y = a_rate_matdeaths)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = ifelse(a_rate_matdeaths > 500, Country.Name, "")))
+
+plot(asia_bar)
 

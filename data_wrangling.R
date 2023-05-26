@@ -195,7 +195,7 @@ extracted_df <- adolescent_technology_df[, c("Country.Name", "a_region", "avg_te
                                              "a_facility_delivery_yes",
                                              "a_facility_delivery_no")]
 
-<<<<<<< HEAD
+
 #box plot : constrast
 box_plt <- ggplot(extracted_df, aes(x = autonomy_levels, y = pct_mod_inneed)) +
           geom_boxplot() 
@@ -258,9 +258,5 @@ asia_bar <- ggplot(asia_filter, aes(x = reorder(Country.Name, a_rate_matdeaths),
   geom_bar(stat = "identity") +
   geom_text(aes(label = ifelse(a_rate_matdeaths > 500, Country.Name, "")))
 
-plot(asia_bar)
+#plot(asia_bar)
 
-=======
-#export to csv
-write.csv(adolescent_technology_df, "C:\\Users\\anyah\\OneDrive\\Desktop\\info 201\\Final Project\\Rino-AnyaFP\\adolescent_technology_df.csv", row.names=TRUE)
->>>>>>> 2f14486e7a4f810fc4a0518e4ffed63347bab700

@@ -194,3 +194,5 @@ extracted_df <- adolescent_technology_df[, c("Country.Name", "a_region", "avg_te
                                              "a_anc_4plus",
                                              "a_facility_delivery_yes",
                                              "a_facility_delivery_no")]
+
+#write.csv(extracted_df, "C:\\Users\\anyah\\OneDrive\\Desktop\\info 201\\Final Project\\Rino-AnyaFP\\test.csv")

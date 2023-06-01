@@ -8,15 +8,15 @@ source("data_wrangling.R")
 
 get_article <- function(article_name){
   if(article_name == "A Time for Change") {
-    return(a("A Time for Change: Advancing Sexual and Reproductive Health and Rights in a New Global Era", href = "https://www.guttmacher.org/gpr/2021/02/time-change-advancing-sexual-and-reproductive-health-and-rights-new-global-era"))
+    return(a(em("A Time for Change: Advancing Sexual and Reproductive Health and Rights in a New Global Era"), href = "https://www.guttmacher.org/gpr/2021/02/time-change-advancing-sexual-and-reproductive-health-and-rights-new-global-era"))
   } else if(article_name == "Lack of Access") {
-    return(a("Lack of Access to Sexual, Reproductive Health Education and Rights Results in Harmful Practices, Impedes Sustainable Development, Speakers Tell Population Commission", href = "https://press.un.org/en/2023/pop1106.doc.htm"))
+    return(a(em("Lack of Access to Sexual, Reproductive Health Education and Rights Results in Harmful Practices, Impedes Sustainable Development, Speakers Tell Population Commission"), href = "https://press.un.org/en/2023/pop1106.doc.htm"))
   } else if(article_name == "In a post-Roe era") {
-    return("In a post-Roe era, the internet could help or hurt women seeking abortions. Here's how.")
+    return(a(em("In a post-Roe era, the internet could help or hurt women seeking abortions. Here's how."), href = "https://www.northjersey.com/story/news/2022/06/24/roe-vs-wade-2022-activists-online-abortion-access-digital-privacy/7624068001/"))
   } else if(article_name == "Women’s Equality Day"){
-    return("Women’s Equality Day: Celebrating the 19th Amendment’s Impact on Reproductive Health and Rights")
+    return(a(em("Women’s Equality Day: Celebrating the 19th Amendment’s Impact on Reproductive Health and Rights"), href = "https://www.americanprogress.org/article/womens-equality-day-celebrating-the-19th-amendments-impact-on-reproductive-health-and-rights/"))
   } else {
-    return("Women's Autonomy, Equality and Reproductive Health in International Human Rights: Between Recognition, Backlash and Regressive Trends")
+    return(a(em("Women's Autonomy, Equality and Reproductive Health in International Human Rights: Between Recognition, Backlash and Regressive Trends"), href = "https://www.ohchr.org/sites/default/files/Documents/Issues/Women/WG/WomensAutonomyEqualityReproductiveHealth.pdf"))
   }
 }
 

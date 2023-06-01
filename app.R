@@ -61,6 +61,29 @@ introductory_pg <- tabPanel("Technology and Reproductive Health",
 background_pg <- tabPanel("Background",
   titlePanel(h1("Learn more about our data and inspiration behind this project")),
   br(),
+  
+  h2("Inspiration"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "article_name",
+        label = "Choose an article",
+        choices = c("Women's Autonomy",
+                    "A Time for Change", 
+                    "Lack of Access",
+                    "In a post-Roe era",
+                    "Women’s Equality Day"
+        )
+      ),
+    ),
+    mainPanel(
+      h3(htmlOutput(outputId = "article_display")),
+      p(htmlOutput(outputId = "article_description")),
+    ),
+  ),
+  
+  br(),
+  
   h2("Data Sources"),
   a(h3(em("Adding It Up: Investing in Sexual and Reproductive Health 2019 - Methodology Report Supplementary Materials")), href = "https://osf.io/nmf8k/?view_only="),
   p("- Observations: 133"),
@@ -104,39 +127,58 @@ background_pg <- tabPanel("Background",
   UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water 
   Supply, Sanitation and Hygiene."),
   
-  h2("Inspiration"),
-  sidebarLayout(
-    sidebarPanel(
-      selectInput(
-        inputId = "article_name",
-        label = "Choose an article",
-        choices = c("Women's Autonomy",
-                    "A Time for Change", 
-                    "Lack of Access",
-                    "In a post-Roe era",
-                    "Women’s Equality Day"
-                    )
-      ),
-    ),
-    mainPanel(
-      h3(htmlOutput(outputId = "article_display")),
-      p(htmlOutput(outputId = "article_description")),
-    ),
-  ),
-  
   a(h2(em("link to our github repository!")), href = "https://github.com/anyahiga10/Rino-AnyaFP.git"),
 )
 
-scatter_pg <- tabPanel("Scatter Plot"
-
+scatter_pg <- tabPanel("Scatter Plot",
+  titlePanel("Looking at outliers/factors with a scatter plot"),
+  p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare to the", strong(em("average technology autonomy"))),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "choose_scatter",
+        label = "Choose a factor",
+        choices = colnames(extracted_df),
+      )
+    ),
+    mainPanel(
+      p(htmlOutput(outputId = "scatter")),
+    ),
+  ),
 )
 
-box_pg <- tabPanel("Box Plot"
-  
+box_pg <- tabPanel("Box Plot",
+  titlePanel("Looking at contrasts with a box plot"),
+  p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare to different", strong(em("average technology autonomy"))),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "choose_box",
+        label = "Choose a factor",
+        choices = colnames(extracted_df),
+      )
+    ),
+    mainPanel(
+      p(htmlOutput(outputId = "box")),
+    ),
+  ),
 )
 
-bar_pg <- tabPanel("Bar Chart"
-  
+bar_pg <- tabPanel("Bar Chart",
+  titlePanel("Zooming in with a bar chart"),
+  p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare different", strong(em("developing countries"))),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "choose_bar",
+        label = "Choose a factor",
+        choices = colnames(extracted_df),
+      )
+    ),
+    mainPanel(
+      p(htmlOutput(outputId = "bar")),
+    ),
+  ),
 )
 
 #ui and server stuff down
@@ -148,11 +190,24 @@ ui <- navbarPage("Rino and Anya Final Project",
                  bar_pg)
 
 server <- function(input, output) {
+  
+  #background page
   output$article_display <- renderUI({
     get_article(input$article_name)
   })
   output$article_description <- renderUI({
     get_description(input$article_name)
+  })
+  
+  #scatter page
+  output$scatter <- renderUI({
+    paste("you chose:", input$choose_scatter)
+  })
+  output$box <- renderUI({
+    paste("you chose:", input$choose_box)
+  })
+  output$bar <- renderUI({
+    paste("you chose:", input$choose_bar)
   })
 }
 

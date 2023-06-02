@@ -1,36 +1,39 @@
 library(shiny)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 
 source("data_wrangling.R")
 source("functions.R")
+source("data_viz.R")
 
 #NOTES
 #figure out image options
+#write more about data on each page
+#tooltip fix
+#country name fix on boxplot
+#outlier naming on scatter etc
 
 #pages
-introductory_pg <- tabPanel("Technology and Reproductive Health",
+main_pg <- tabPanel("Technology and Reproductive Health",
    titlePanel(h1("WELCOME!!!")),
    br(),
    p("Thank you for checking out our page! This application uses three types of data visualizations and data storytelling
      to explore the possible connections between technology access and reproductive health for adolecent women. Feel free
      to click on any of our three pages that display these stories and data!"),
    br(),
-   sidebarLayout(
-     sidebarPanel(
-       radioButtons(
-         inputId = "data",
-         label = "Choose a group of data",
-         choices = c("average technolgy vs", "countries vs", "autonomy levels vs")
-       )
-     ),
-     mainPanel(
-       h3("learn more here"),
-       #htmlOutput(outputId = "data_viz"),
-       #htmlOutput(outputId = "description"),
-       #htmlOutput(outputId = "notices"),
-     )
+   
+   h3(strong("learn more here")),
+   p("Get a preview of what our graphs look like and what actions you can make!"),
+   radioButtons(
+     inputId = "data",
+     label = "Choose a group of data",
+     choices = c("average technolgy vs", "countries vs", "autonomy levels vs")
    ),
+   plotlyOutput(
+     outputId = "sample_graph"
+   ),
+   
    br(),
    h1("Goals of this Project"),
    p("Our analysis will involve comparing two datasets that provide information on technology and financial 
@@ -138,11 +141,13 @@ scatter_pg <- tabPanel("Scatter Plot",
       selectInput(
         inputId = "choose_scatter",
         label = "Choose a factor",
-        choices = colnames(extracted_df),
+        choices = colnames(df_for_plot[5:13]),
       )
     ),
     mainPanel(
-      p(htmlOutput(outputId = "scatter")),
+      plotlyOutput(
+        outputId = "scatter"
+      ),
     ),
   ),
 )
@@ -155,11 +160,13 @@ box_pg <- tabPanel("Box Plot",
       selectInput(
         inputId = "choose_box",
         label = "Choose a factor",
-        choices = colnames(extracted_df),
+        choices = colnames(df_for_plot[5:13]),
       )
     ),
     mainPanel(
-      p(htmlOutput(outputId = "box")),
+      plotlyOutput(
+        outputId = "box"
+      ),
     ),
   ),
 )
@@ -172,24 +179,35 @@ bar_pg <- tabPanel("Bar Chart",
       selectInput(
         inputId = "choose_bar",
         label = "Choose a factor",
-        choices = colnames(extracted_df),
+        choices = colnames(df_for_plot[5:13]),
+      ),
+      selectInput(
+        inputId = "choose_region",
+        label = "Choose a Region",
+        choices = unique(df_for_plot$Region),
       )
     ),
     mainPanel(
-      p(htmlOutput(outputId = "bar")),
+      plotlyOutput(
+        outputId = "bar"
+      ),
     ),
   ),
 )
 
 #ui and server stuff down
 ui <- navbarPage("Rino and Anya Final Project",
-                 introductory_pg,
+                 main_pg,
                  background_pg,
                  scatter_pg,
                  box_pg,
                  bar_pg)
 
 server <- function(input, output) {
+  #main page
+  output$sample_graph <- renderPlotly({
+    return(get_viz(input$data))
+  })
   
   #background page
   output$article_display <- renderUI({
@@ -200,14 +218,14 @@ server <- function(input, output) {
   })
   
   #scatter page
-  output$scatter <- renderUI({
-    paste("you chose:", input$choose_scatter)
+  output$scatter <- renderPlotly({
+    return(tech_pct_vs_plot(input$choose_scatter))
   })
-  output$box <- renderUI({
-    paste("you chose:", input$choose_box)
+  output$box <- renderPlotly({
+    return(autonomy_vs_plot(input$choose_box))
   })
-  output$bar <- renderUI({
-    paste("you chose:", input$choose_bar)
+  output$bar <- renderPlotly({
+    return(country_vs_plot(input$choose_bar, input$choose_region))
   })
 }
 

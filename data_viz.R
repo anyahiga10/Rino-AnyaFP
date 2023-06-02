@@ -12,8 +12,9 @@ names(df_for_plot) [4] <- "Autonomy Level"
 names(df_for_plot) [5] <- "% of unwanted pregrancies"
 names(df_for_plot) [6] <- "% of maternal deaths due to unsafe abortions"
 names(df_for_plot) [7] <- "Total maternal deaths per 100,000 live births"
-names(df_for_plot) [8] <- "% of modern contraceptive method use among women needing/wanting to avoid pregnancy"
-names(df_for_plot) [9] <- "% of traditional/no contraceptive method use among women needing/wanting to avoid pregnancy"
+#make note that they are needing/wanting to avoid pregnancy in notes
+names(df_for_plot) [8] <- "% of modern contraceptive method use"
+names(df_for_plot) [9] <- "% of traditional/no contraceptive method use"
 names(df_for_plot) [10] <- "% of women with less than four ANC visits"
 names(df_for_plot) [11] <- "% of women with four or more ANC visits"
 names(df_for_plot) [12] <- "% of women who delivered in a health facility"
@@ -22,41 +23,44 @@ names(df_for_plot) [13] <- "% of women who did not deliver in a health facility"
 # box plot : contrast (by autonomy levels)
 
 autonomy_vs_plot <- function(column) {
-  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
+  select_colname <- select(df_for_plot, matches(column), "Autonomy Level")
 
-  box_plt <- ggplot(df_for_plot, aes(x = df_for_plot[4], y = select_colname)) + 
+  box_plt <- ggplot(df_for_plot, aes(x = select_colname[,2], y = select_colname[,1])) + 
             geom_boxplot() +
-            labs(x = "Level of technology and financial autonomy", y = select_colname,
-                 title = paste("Technology and Financial autonomy VS", select_colname))             
-  #print(select_colname)
+            labs(x = "Level of technology/financial autonomy", y = column,
+                 title = paste("Technology/Financial autonomy VS", column))             
   
-  return(plot(box_plt))
+  return(box_plt)
 }
-#autonomy_vs_plot("Total maternal deaths per 100,000 live births")
+#(autonomy_vs_plot("% of modern contraceptive method use among women needing/wanting to avoid pregnancy"))
 
 # scatterplot : outlier (by percentage of avg technology access)
 
 tech_pct_vs_plot <- function(column) {
-  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
-  
-  scatter_plt <- ggplot(df_for_plot, aes(x = "Average % of Technology Access", y = select_colname)) +
+  select_colname <- select(df_for_plot, matches(column), "Average % of Technology Access", Region)
+
+  scatter_plt <- ggplot(select_colname, aes(x = select_colname[,2], y = select_colname[,1])) +
                 geom_point(aes(col = Region)) +
-                labs(x = "Average percentage of technology access", y = select_colname,
-                     title = paste("Average percentage of technology access VS", select_colname),
+                labs(x = "Avg % of technology access", y = column,
+                     title = paste("Avg % of technology access VS", column),
                      color = "Region")
   
-  return(plot(scatter_plt))
+  return(scatter_plt)
 }
-#tech_pct_vs_plot("pct_mod_inneed")
+#plot(tech_pct_vs_plot("% of modern contraceptive method use among women needing/wanting to avoid pregnancy"))
 
 # bar chart : zoom in to regions (by region)
 
 country_vs_plot <- function(column, region) {
-  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
+  by_region <- df_for_plot[df_for_plot$Region == region,]
   
-  by_region <- select_colname[select_colname$Region == region, ]
+  select_colname <- select(by_region, matches(column), Country)
   
-  bargraph <- ggplot(by_region, aes(x = reorder(Country, select_colname), y = select_colname)) +
-              geom_bar(stat = "identity") 
+  bargraph <- ggplot(select_colname, aes(x = reorder(select_colname[,2], select_colname[,1]), y = select_colname[,1])) +
+              geom_bar(stat = "identity") +
+              labs(x = "Country", y = column,
+                     title = paste("Countries in a sepcific region vs", column),
+                     color = "Country")
+  return(bargraph)
 }
-country_vs_plot("% of maternal deaths due to unsafe abortions", Africa)
+#plot(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))

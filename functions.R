@@ -6,6 +6,16 @@ library(shiny)
 source("data_viz.R")
 source("data_wrangling.R")
 
+get_viz <- function(viz_selection){
+  if(viz_selection == "average technolgy vs"){
+    return(tech_pct_vs_plot("% of modern contraceptive method use"))
+  } else if(viz_selection == "countries vs"){
+    return(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))
+  } else {
+    return(autonomy_vs_plot("% of modern contraceptive method use"))
+  }
+}
+
 get_article <- function(article_name){
   if(article_name == "A Time for Change") {
     return(a(em("A Time for Change: Advancing Sexual and Reproductive Health and Rights in a New Global Era"), href = "https://www.guttmacher.org/gpr/2021/02/time-change-advancing-sexual-and-reproductive-health-and-rights-new-global-era"))

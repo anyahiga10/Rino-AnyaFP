@@ -37,6 +37,7 @@ autonomy_vs_plot <- function(column) {
 # scatterplot : outlier (by percentage of avg technology access)
 
 tech_pct_vs_plot <- function(column) {
+  
   select_colname <- select(df_for_plot, matches(column), "Average % of Technology Access", Region, Country)
 
   scatter_plt <- ggplot(select_colname, aes(x = select_colname[,2], y = select_colname[,1], text = Country)) +

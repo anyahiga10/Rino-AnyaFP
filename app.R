@@ -151,7 +151,7 @@ scatter_pg <- tabPanel("Scatter Plot",
         inputId = "choose_scatter",
         label = "Choose a factor",
         choices = colnames(df_for_plot[5:13]),
-      )
+      ),
     ),
     mainPanel(
       plotlyOutput(
@@ -186,15 +186,15 @@ bar_pg <- tabPanel("Bar Chart",
   sidebarLayout(
     sidebarPanel(
       selectInput(
+        inputId = "choose_region",
+        label = "Choose a Region",
+        choices = unique(df_for_plot$Region),
+      ),
+      selectInput(
         inputId = "choose_bar",
         label = "Choose a factor",
         choices = colnames(df_for_plot[5:13]),
       ),
-      selectInput(
-        inputId = "choose_region",
-        label = "Choose a Region",
-        choices = unique(df_for_plot$Region),
-      )
     ),
     mainPanel(
       plotlyOutput(
@@ -236,9 +236,13 @@ server <- function(input, output) {
   output$scatter <- renderPlotly({
     return(tech_pct_vs_plot(input$choose_scatter))
   })
+  
+  #box page
   output$box <- renderPlotly({
     return(autonomy_vs_plot(input$choose_box))
   })
+  
+  #bar page
   output$bar <- renderPlotly({
     return(country_vs_plot(input$choose_bar, input$choose_region))
   })

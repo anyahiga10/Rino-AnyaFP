@@ -49,7 +49,10 @@ get_viz_description <- function(viz_selection){
     return(p("The use of a bar chart and multiple filters allowed us to use
               the \"zoom\" in data story type for a bar chart. In the bar chart: zoom in page,
              you will be able to choose two filters, the region and the factor.
-             With the region filter, one is able to "))
+             With the region filter, one is able to zoom into the region and only look at 
+             the countries within the region. Once you select the region you can also choose 
+             a specific reproductive/sexual health factor. There are so many possibilities 
+             to choose from and lots of stories that can come from them."))
   } else {
     return(p("For the box plot we can look at our 5
               categories of autonomy levels and observe a

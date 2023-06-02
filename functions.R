@@ -16,6 +16,60 @@ get_viz <- function(viz_selection){
   }
 }
 
+get_viz_title <- function(viz_selection){
+  if(viz_selection == "average technolgy vs"){
+    return(h1("Scatter Plot: outliers/factors"))
+  } else if(viz_selection == "countries vs"){
+    return(h1("Bar Chart: Zoom in"))
+  } else {
+    return(h1("Box plot: Contrast"))
+  }
+}
+
+get_viz_description <- function(viz_selection){
+  if(viz_selection == "average technolgy vs"){
+    return(p("Through utilizing the scatter plot to discover
+              outliers one can evaluate the countries with
+              extreme differences between percentage of
+              technology autonomy and percentage of
+              maternal deaths due to unsafe abortions. We
+              can see here some Asian countries, such as,
+              Malaysia, Thailand, and Mongolia, tend to be
+              the extreme outliers with high percentage of
+              technology autonomy, however, also a high
+              maternal death rate with unsafe abortions. 
+             In addition to seeing the outliers, by grouping 
+             the countries by region we can see a trend within 
+             the regions and also see how these factors can influence 
+             the bigger region of each country. These outliers support 
+             the story that abortions are a taboo topic in a lot of countries 
+             in Southeast Asia, despite their high percentage of technology 
+             autonomy for women."))
+  } else if(viz_selection == "countries vs"){
+    return(p("The use of a bar chart and multiple filters allowed us to use
+              the \"zoom\" in data story type for a bar chart. In the bar chart: zoom in page,
+             you will be able to choose two filters, the region and the factor.
+             With the region filter, one is able to "))
+  } else {
+    return(p("For the box plot we can look at our 5
+              categories of autonomy levels and observe a
+              trend in how it may correlate with the amount of
+              women who use modern contraceptives with
+              the goal to prevent pregnancy. We can look at
+              the graph and the two extremes show a very
+              insightful story. The higher the technology
+              autonomy levels are the higher use of modern
+              birth control methods are. This would make
+              sense because with more access to technology, 
+             the more informed adolescent women are, and the 
+             more they can seek out these modern birth control 
+             methods. we could also look at the outliers within 
+             this graph, similar to the last one, to look at what 
+             factors may contribute to the lack of reproductive 
+             information and safe resources."))
+  }
+}
+
 get_article <- function(article_name){
   if(article_name == "A Time for Change") {
     return(a(em("A Time for Change: Advancing Sexual and Reproductive Health and Rights in a New Global Era"), href = "https://www.guttmacher.org/gpr/2021/02/time-change-advancing-sexual-and-reproductive-health-and-rights-new-global-era"))

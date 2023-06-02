@@ -23,13 +23,22 @@ main_pg <- tabPanel("Technology and Reproductive Health",
      to click on any of our three pages that display these stories and data!"),
    br(),
    
-   h3(strong("learn more here")),
-   p("Get a preview of what our graphs look like and what actions you can make!"),
-   radioButtons(
-     inputId = "data",
-     label = "Choose a group of data",
-     choices = c("average technolgy vs", "countries vs", "autonomy levels vs")
+   sidebarLayout(
+     sidebarPanel(
+       h2(strong("LEARN MORE HERE")),
+       p("Get a preview of what our graphs look like and what actions you can make!"),
+       radioButtons(
+         inputId = "data",
+         label = "Choose a group of data",
+         choices = c("average technolgy vs", "countries vs", "autonomy levels vs")
+       ),
+     ),
+     mainPanel(
+       h3(htmlOutput(outputId = "viz_title")),
+       p(htmlOutput(outputId = "viz_description")),
+     ),
    ),
+   
    plotlyOutput(
      outputId = "sample_graph"
    ),
@@ -207,6 +216,12 @@ server <- function(input, output) {
   #main page
   output$sample_graph <- renderPlotly({
     return(get_viz(input$data))
+  })
+  output$viz_title <- renderUI({
+    get_viz_title(input$data)
+  })
+  output$viz_description <- renderUI({
+    get_viz_description(input$data)
   })
   
   #background page

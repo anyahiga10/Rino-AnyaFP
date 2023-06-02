@@ -3,66 +3,60 @@ library(dplyr)
 library(ggplot2)
 source("data_wrangling.R")
 
-#box plot : constrast
-box_plt <- ggplot(extracted_df, aes(x = autonomy_levels, y = pct_mod_inneed)) +
-  geom_boxplot() 
-#        geom_text(aes(label = ifelse(a_pct_upreg >= 0.6, Country.Name, "")))
+# make a df for plot and rename the columns to make it UI-friendly
+df_for_plot <- extracted_df
+names(df_for_plot) [1] <- "Country"
+names(df_for_plot) [2] <- "Region"
+names(df_for_plot) [3] <- "Average % of Technology Access"
+names(df_for_plot) [4] <- "Autonomy Level"
+names(df_for_plot) [5] <- "% of unwanted pregrancies"
+names(df_for_plot) [6] <- "% of maternal deaths due to unsafe abortions"
+names(df_for_plot) [7] <- "Total maternal deaths per 100,000 live births"
+names(df_for_plot) [8] <- "% of modern contraceptive method use among women needing/wanting to avoid pregnancy"
+names(df_for_plot) [9] <- "% of traditional/no contraceptive method use among women needing/wanting to avoid pregnancy"
+names(df_for_plot) [10] <- "% of women with less than four ANC visits"
+names(df_for_plot) [11] <- "% of women with four or more ANC visits"
+names(df_for_plot) [12] <- "% of women who delivered in a health facility"
+names(df_for_plot) [13] <- "% of women who did not deliver in a health facility"
 
-#plot(box_plt)
+# box plot : contrast (by autonomy levels)
 
-# scatter1 <- ggplot(extracted_df, aes(x = avg_technology, y = pct_mod_inneed)) + 
-#           geom_point(aes(col = a_region)) +
-#           geom_text(aes(label = ifelse(pct_mod_inneed >= 75 | avg_technology >= 40, Country.Name, "")))
-# plot(scatter1)
-# 
-# scatter2 <- ggplot(extracted_df, aes(x = avg_technology, y = a_pct_matdeaths_unsafeabs)) +
-#   geom_point(aes(col = a_region)) +
-#   geom_text(aes(label = ifelse(a_pct_matdeaths_unsafeabs >= 0.2 | avg_technology >= 40, Country.Name, "")))
-# plot(scatter2)
-# 
+autonomy_vs_plot <- function(column) {
+  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
 
-# scatterplot : outlier
+  box_plt <- ggplot(df_for_plot, aes(x = df_for_plot[4], y = select_colname)) + 
+            geom_boxplot() +
+            labs(x = "Level of technology and financial autonomy", y = select_colname,
+                 title = paste("Technology and Financial autonomy VS", select_colname))             
+  #print(select_colname)
+  
+  return(plot(box_plt))
+}
+#autonomy_vs_plot("Total maternal deaths per 100,000 live births")
 
-# scatter3 <- ggplot(adolescent_technology_df, aes(x = avg_technology, y = a_pct_matdeaths_unsafeabs)) +
-#   geom_point(aes(col = a_region)) +
-#   geom_text(aes(label = ifelse(a_pct_matdeaths_unsafeabs >= 0.2 | avg_technology >= 40, Country.Name, "")))
-# 
-# plot(scatter3)
+# scatterplot : outlier (by percentage of avg technology access)
 
+tech_pct_vs_plot <- function(column) {
+  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
+  
+  scatter_plt <- ggplot(df_for_plot, aes(x = "Average % of Technology Access", y = select_colname)) +
+                geom_point(aes(col = Region)) +
+                labs(x = "Average percentage of technology access", y = select_colname,
+                     title = paste("Average percentage of technology access VS", select_colname),
+                     color = "Region")
+  
+  return(plot(scatter_plt))
+}
+#tech_pct_vs_plot("pct_mod_inneed")
 
-# world_shape <- map_data("world")
-# map <- ggplot(world_shape) +
-#        geom_polygon(
-#          mapping = aes(x = long, y = lat, group = group),
-#          color = "white", 
-#          linewidth = .1
-#        ) +
-#       coord_map()
-# 
-# plot(map)
+# bar chart : zoom in to regions (by region)
 
-# visits to anc by region violin plot
-
-violin <- ggplot(extracted_df, aes(x = autonomy_levels, y = a_pct_upreg, fill = autonomy_levels)) +
-  geom_violin()
-
-plot(violin)
-
-africa_filter <- extracted_df[extracted_df$a_region == "Africa", ]
-africa_scatter <- ggplot(africa_filter, aes(x = avg_technology, y = a_rate_matdeaths)) +
-  geom_point()
-
-plot(africa_scatter)
-
-africa_bar <- ggplot(africa_filter, aes(x = reorder(Country.Name, a_rate_matdeaths), y = a_rate_matdeaths)) +
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = ifelse(a_rate_matdeaths > 500, Country.Name, "")))
-
-plot(africa_bar)
-
-asia_filter <- extracted_df[extracted_df$a_region == "Asia", ]
-asia_bar <- ggplot(asia_filter, aes(x = reorder(Country.Name, a_rate_matdeaths), y = a_rate_matdeaths)) +
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = ifelse(a_rate_matdeaths > 500, Country.Name, "")))
-
-#plot(asia_bar)
+country_vs_plot <- function(column, region) {
+  select_colname <- df_for_plot[, colnames(df_for_plot) == column]
+  
+  by_region <- select_colname[select_colname$Region == region, ]
+  
+  bargraph <- ggplot(by_region, aes(x = reorder(Country, select_colname), y = select_colname)) +
+              geom_bar(stat = "identity") 
+}
+country_vs_plot("% of maternal deaths due to unsafe abortions", Africa)

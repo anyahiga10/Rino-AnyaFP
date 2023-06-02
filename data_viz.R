@@ -55,12 +55,15 @@ country_vs_plot <- function(column, region) {
   by_region <- df_for_plot[df_for_plot$Region == region,]
   
   select_colname <- select(by_region, matches(column), Country)
+  select_colname <- na.omit(select_colname)
   
   bargraph <- ggplot(select_colname, aes(x = reorder(select_colname[,2], select_colname[,1]), y = select_colname[,1])) +
               geom_bar(stat = "identity") +
-              labs(x = "Country", y = column,
-                     title = paste("Countries in a sepcific region vs", column),
-                     color = "Country")
+              labs(x = "", y = column,
+                  title = paste("Countries in a sepcific region vs", column),
+                  color = "Country") +
+              theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+              coord_flip() 
   return(bargraph)
 }
 #plot(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))

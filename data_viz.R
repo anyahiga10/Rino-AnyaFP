@@ -1,6 +1,7 @@
 library(stringr)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 source("data_wrangling.R")
 
 # make a df for plot and rename the columns to make it UI-friendly
@@ -25,10 +26,12 @@ names(df_for_plot) [13] <- "% of women who did not deliver in a health facility"
 autonomy_vs_plot <- function(column) {
   select_colname <- select(df_for_plot, matches(column), "Autonomy Level")
 
-  box_plt <- ggplot(df_for_plot, aes(x = select_colname[,2], y = select_colname[,1])) + 
+  box_plt <- ggplot(df_for_plot, aes(x = select_colname[,2], y = select_colname[,1], text = Country)) + 
             geom_boxplot() +
             labs(x = "Level of technology/financial autonomy", y = column,
-                 title = paste("Technology/Financial autonomy VS", column))             
+                 title = paste("Technology/Financial autonomy VS", column))     
+  
+  box_plt <- ggplotly(box_plt, tooltip = "text")
   
   return(box_plt)
 }
@@ -44,7 +47,10 @@ tech_pct_vs_plot <- function(column) {
                 geom_point(aes(col = Region)) +
                 labs(x = "Avg % of technology access", y = column,
                      title = paste("Avg % of technology access VS", column),
-                     color = "Region") 
+                     color = "Region")
+  
+  scatter_plt <- ggplotly(scatter_plt, tooltip = "text")
+  
   return(scatter_plt)
 }
 #plot(tech_pct_vs_plot("% of modern contraceptive method use among women needing/wanting to avoid pregnancy"))
@@ -57,13 +63,16 @@ country_vs_plot <- function(column, region) {
   select_colname <- select(by_region, matches(column), Country)
   select_colname <- na.omit(select_colname)
   
-  bargraph <- ggplot(select_colname, aes(x = reorder(select_colname[,2], select_colname[,1]), y = select_colname[,1])) +
+  bargraph <- ggplot(select_colname, aes(x = reorder(select_colname[,2], select_colname[,1]), y = select_colname[,1], text = Country)) +
               geom_bar(stat = "identity") +
               labs(x = "", y = column,
                   title = paste("Countries in a sepcific region vs", column),
                   color = "Country") +
               theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
               coord_flip() 
+  
+  bargraph <- ggplotly(bargraph, tooltip = "text")
+  
   return(bargraph)
 }
 #plot(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))

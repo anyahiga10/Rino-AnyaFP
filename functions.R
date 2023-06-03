@@ -8,7 +8,7 @@ source("data_wrangling.R")
 
 get_viz <- function(viz_selection){
   if(viz_selection == "average technolgy vs"){
-    return(tech_pct_vs_plot("% of modern contraceptive method use"))
+    return(tech_pct_vs_plot("% of maternal deaths due to unsafe abortions"))
   } else if(viz_selection == "countries vs"){
     return(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))
   } else {
@@ -18,7 +18,7 @@ get_viz <- function(viz_selection){
 
 get_viz_title <- function(viz_selection){
   if(viz_selection == "average technolgy vs"){
-    return(h1("Scatter Plot: outliers/factors"))
+    return(h1("Scatter Plot: Outliers"))
   } else if(viz_selection == "countries vs"){
     return(h1("Bar Chart: Zoom in"))
   } else {

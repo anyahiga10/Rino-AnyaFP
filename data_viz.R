@@ -44,8 +44,7 @@ tech_pct_vs_plot <- function(column) {
                 geom_point(aes(col = Region)) +
                 labs(x = "Avg % of technology access", y = column,
                      title = paste("Avg % of technology access VS", column),
-                     color = "Region")
-  
+                     color = "Region") 
   return(scatter_plt)
 }
 #plot(tech_pct_vs_plot("% of modern contraceptive method use among women needing/wanting to avoid pregnancy"))

@@ -2,6 +2,7 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(shinythemes)
 
 source("data_wrangling.R")
 source("functions.R")
@@ -11,21 +12,22 @@ source("data_viz.R")
 #figure out image options
 #write more about data on each page
 #tooltip fix
-#country name fix on boxplot
-#outlier naming on scatter etc
 
 #pages
 main_pg <- tabPanel("Technology and Reproductive Health",
-   titlePanel(h1("WELCOME!!!")),
-   br(),
-   p("Thank you for checking out our page! This application uses three types of data visualizations and data storytelling
+                    
+  tags$div(class = "jumbotron text-center", style = "margin-bottom:0px;margin-top:0px",
+             tags$h2(class = 'jumbotron-heading', stye = 'margin-bottom:0px;margin-top:0px', strong("Comparing Technology and Reproductive Health in Developing Countries")),
+             h4("Thank you for checking out our page! This application uses three types of data visualizations and data storytelling
      to explore the possible connections between technology access and reproductive health for adolecent women. Feel free
-     to click on any of our three pages that display these stories and data!"),
+     to click on any of our three pages that display these stories and data!")
+    ),
+  
    br(),
    
    sidebarLayout(
      sidebarPanel(
-       h2(strong("LEARN MORE HERE")),
+       h3(strong("LEARN MORE HERE")),
        p("Get a preview of what our graphs look like and what actions you can make!"),
        radioButtons(
          inputId = "data",
@@ -49,7 +51,11 @@ main_pg <- tabPanel("Technology and Reproductive Health",
      inclusion and sexual and reproductive health outcomes for adolescent females, defined as 15-19, in multiple 
      countries. We will use our knowledge of R and statistical analysis methods to identify any patterns or trends 
      that emerge from these variables in our two datasets."),
-   img("Data Nutrition Label", src = "C:\\Users\\anyah\\OneDrive\\Desktop\\info 201\\Final Project\\Rino-AnyaFP\\DataNutritionLabel.pdf"),
+  
+    #tags$embed(src = "DataNutritionLabel.pdf"),
+    #tags$embed(src = "C:\\Users\\anyah\\OneDrive\\Desktop\\info 201\\Final Project\\Rino-AnyaFP\\DataNutritionLabel.pdf"),
+    tags$img("Data Nutrition Label", src = "DataNutritionLabel.pdf"),
+  
    p("Our hypothesis is that there will be a positive correlation 
      between access to technology and positive sexual and reproductive health outcomes among adolescent females. We 
      believe that greater access to mobile phones, digital payments and the internet can provide individuals with 
@@ -71,10 +77,14 @@ main_pg <- tabPanel("Technology and Reproductive Health",
 )
 
 background_pg <- tabPanel("Background",
-  titlePanel(h1("Learn more about our data and inspiration behind this project")),
-  br(),
+                          
+  tags$div(class = "jumbotron text-center", style = "margin-bottom:0px;margin-top:0px",
+             tags$h2(class = 'jumbotron-heading', stye = 'margin-bottom:0px;margin-top:0px', strong("Learn More About our Inspiration and Data Behind our Project!")),
+           h4("This page talks about the articles we looked at for inspiration for this project and dives deep into our data.")
+    ),                        
+  hr(),
   
-  h2("Inspiration"),
+  h3(strong("Inspiration")),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -94,14 +104,18 @@ background_pg <- tabPanel("Background",
     ),
   ),
   
-  br(),
+  hr(),
   
-  h2("Data Sources"),
+  h3(strong("Data Sources")),
   a(h3(em("Adding It Up: Investing in Sexual and Reproductive Health 2019 - Methodology Report Supplementary Materials")), href = "https://osf.io/nmf8k/?view_only="),
-  p("- Observations: 133"),
-  p("- Features: 156"),
-  p("- This dataset is about sexual and reproductive health costs and outcomes of adolescent females 
-    (defined as 15-19) across a multitude of countries."),
+  
+  tags$ul(
+    tags$li("Observations: 133"), 
+    tags$li("Features: 156"), 
+    tags$li("This dataset is about sexual and reproductive health costs and outcomes of adolescent females 
+    (defined as 15-19) across a multitude of countries.")
+  ),
+  
   p("Because this dataset spans such a large area of topics they had published a methodology report 
   about how they collected all their findings. While reading through multiple reports, there are a 
   couple notable strategies to their data collection. They pull from a variety of surveys and other 
@@ -128,10 +142,14 @@ background_pg <- tabPanel("Background",
   p("^ A methodology report that goes further into the specific region's sources can be downloaded here."),
   br(),
   a(h3(em("The World Bank: Gender Data Portal")), href = "https://genderdata.worldbank.org/topics/technology/"),
-  p("- Observations: 14941"),
-  p("- Features: 24"),
-  p("- This dataset is compiled of multiple indicators that assesses female access to technology through 
-    online accounts across a multitude of countries."),
+  
+  tags$ul(
+    tags$li("Observations: 14941"), 
+    tags$li("Features: 24"), 
+    tags$li("This dataset is compiled of multiple indicators that assesses female access to technology through 
+    online accounts across a multitude of countries.")
+  ),
+
   p("This dataset contains data sourced from a couple of sources. Including but not limited to, 
   demographic and health surveys, the Global Findex database, UNESCO Institute for Statistics, 
   International Monetary Fund, International Financial Statistics and data files., World Bank national 
@@ -139,19 +157,32 @@ background_pg <- tabPanel("Background",
   UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water 
   Supply, Sanitation and Hygiene."),
   
+  br(),
+  br(),
+
   a(h2(em("link to our github repository!")), href = "https://github.com/anyahiga10/Rino-AnyaFP.git"),
 )
 
-scatter_pg <- tabPanel("Scatter Plot",
-  titlePanel("Looking at outliers/factors with a scatter plot"),
+scatter_pg <- tabPanel("Outliers",
+  titlePanel("Looking at outliers with a scatter plot"),
   p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare to the", strong(em("average technology autonomy"))),
+  br(),
   sidebarLayout(
     sidebarPanel(
       selectInput(
         inputId = "choose_scatter",
-        label = "Choose a factor",
+        label = "Choose a Factor",
         choices = colnames(df_for_plot[5:13]),
       ),
+      p("Through utilizing the scatter plot to discover
+              outliers one can evaluate the countries with
+              extreme differences between percentage of
+              technology autonomy and percentage of
+              maternal deaths due to unsafe abortions. 
+             In addition to seeing the outliers, by grouping 
+             the countries by region we can see a trend within 
+             the regions and also see how these factors can influence 
+             the bigger region of each country."),
     ),
     mainPanel(
       plotlyOutput(
@@ -161,16 +192,26 @@ scatter_pg <- tabPanel("Scatter Plot",
   ),
 )
 
-box_pg <- tabPanel("Box Plot",
+box_pg <- tabPanel("Contrast",
   titlePanel("Looking at contrasts with a box plot"),
   p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare to different", strong(em("average technology autonomy"))),
+  br(),
   sidebarLayout(
     sidebarPanel(
       selectInput(
         inputId = "choose_box",
-        label = "Choose a factor",
+        label = "Choose a Factor",
         choices = colnames(df_for_plot[5:13]),
-      )
+      ),
+      p("For the box plot we can look at our 5
+              categories of autonomy levels and observe a
+              trend in how it may correlate with the amount of
+              women who use modern contraceptives with
+              the goal to prevent pregnancy. We can look at
+              the graph and the two extremes show a very
+              insightful story. The higher the technology
+              autonomy levels are the higher use of modern
+              birth control methods are."),
     ),
     mainPanel(
       plotlyOutput(
@@ -180,9 +221,10 @@ box_pg <- tabPanel("Box Plot",
   ),
 )
 
-bar_pg <- tabPanel("Bar Chart",
+bar_pg <- tabPanel("Zoom In",
   titlePanel("Zooming in with a bar chart"),
   p("Here you should select a", strong(em("reproductive/sexual health factor")) ,"to compare different", strong(em("developing countries"))),
+  br(),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -195,6 +237,13 @@ bar_pg <- tabPanel("Bar Chart",
         label = "Choose a factor",
         choices = colnames(df_for_plot[5:13]),
       ),
+      p("The use of a bar chart and multiple filters allowed us to use
+              the \"zoom\" in data story type for a bar chart. In the bar chart: zoom in page,
+             you will be able to choose two filters, the region and the factor.
+             With the region filter, one is able to zoom into the region and only look at 
+             the countries within the region. Once you select the region you can also choose 
+             a specific reproductive/sexual health factor. There are so many possibilities 
+             to choose from and lots of stories that can come from them.")
     ),
     mainPanel(
       plotlyOutput(
@@ -205,7 +254,8 @@ bar_pg <- tabPanel("Bar Chart",
 )
 
 #ui and server stuff down
-ui <- navbarPage("Rino and Anya Final Project",
+ui <- navbarPage("Rino and Anya Final Project", 
+                 theme = shinytheme("flatly"),
                  main_pg,
                  background_pg,
                  scatter_pg,

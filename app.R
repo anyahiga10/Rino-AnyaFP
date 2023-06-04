@@ -112,40 +112,37 @@ background_pg <- tabPanel("Background",
   hr(),
   
   h3(strong("Data Sources")),
-  a(h3(em("Adding It Up: Investing in Sexual and Reproductive Health 2019 - Methodology Report Supplementary Materials")), href = "https://osf.io/nmf8k/?view_only="),
+  a(h3(em("Adding It Up: Investing in Sexual and Reproductive Health 2019 - Adolescent Dataset")), href = "https://osf.io/nmf8k/?view_only="),
   
   tags$ul(
     tags$li("Observations: 133"), 
     tags$li("Features: 156"), 
     tags$li("This dataset is about sexual and reproductive health costs and outcomes of adolescent females 
-    (defined as 15-19) across a multitude of countries.")
+    (defined as 15-19) across a multitude of developing countries.")
   ),
   
-  p("Because this dataset spans such a large area of topics they had published a methodology report 
-  about how they collected all their findings. While reading through multiple reports, there are a 
-  couple notable strategies to their data collection. They pull from a variety of surveys and other 
-  foundations data with the addition of their own estimates. They also pull data from their past reports. 
-  Costs are broken up into indirect and direct costs. \"Direct costs are estimated using a bottom-up, 
-  ingredients approach, meaning that the costs of resources required to provide a given service are added 
-  together to produce a total cost...\"Indirect costs, referred to as programs and systems costs, are 
-  estimated by applying region-specific markup rates to direct costs...Estimates of the types and 
-  quantities of resources required to provide contraceptive services, pregnancy-related and newborn 
-  health care, and STI care are based on assumptions from the Lives Saved Tool (Spectrum Version 5.73) 
-  and the OneHealth Tool, supplemented by scientific literature, World Health Organization (WHO) policies
-  and general recommendations, and expert review. Country-specific personnel salaries come from WHO-CHOICE
-  personnel cost estimates from 2010 and have been inflated to 2019 levels. Contraceptive commodity costs 
-  are average prices for 2015–2018 and come from the Reproductive Health Interchange database. Nearly all
-  prices for drugs and supplies are drawn from the United Nations Population Fund (UNFPA), UNICEF, 
-  Management Sciences for Health and IDA Foundation. The programs and systems costs are based on estimates
-  from UNFPA.\" The demographics and health data sources come from surveys from the,\"Demographic and Health
-  Surveys, UNICEF Multiple Indicator Cluster Surveys, U.S. Centers for Disease Control Reproductive Health 
-  Surveys, The Lancet Stillbirth Epidemiology Investigator Group, and Performance Monitoring for Action 
-  Surveys, among others.\""),
+  p("This dataset has extensive demographic data that are sourced in late 2010's. It covers a wide range of topics, and the organization behind it has published a methodology report detailing their data collection process. 
+  Notable strategies include utilizing various surveys, external data sources, and their own estimates. They also incorporate data from their previous reports. 
+  Specifically, the demographic and health data sources include surveys such as the Demographic and Health Surveys, UNICEF Multiple Indicator Cluster Surveys, 
+  U.S. Centers for Disease Control Reproductive Health Surveys, The Lancet Stillbirth Epidemiology Investigator Group, and Performance Monitoring for Action Surveys, among others."),
   a(em("How are the Adding it Up estimates generated?"), href = "https://www.guttmacher.org/report/adding-it-up-investing-in-sexual-reproductive-health-2019"),
   p("^Source for information found above"),
   a(em("Adding It Up: Investing in Sexual and Reproductive Health 2019—Methodology Report"), href = "https://www.guttmacher.org/report/adding-it-up-investing-in-sexual-reproductive-health-2019-methodology"),
   p("^ A methodology report that goes further into the specific region's sources can be downloaded here."),
+  
   br(),
+  
+  p("For our analysis, we focus on these indicators:"),
+  p(strong(em("% of unintended pregrancies")), ": Percent of all pregnancies that are unintended, country level"),
+  p(strong(em("% of maternal deaths due to unsafe abortions")), ": Percent of maternal deaths due to unsafe induced abortion"),
+  p(strong(em("Total maternal deaths per 100,000 live births"))),
+  p(strong(em("% of traditional/no contraceptive method use")), ": Percent of traditional/no contraceptive method use among women needing/wanting to avoid pregnancy"), 
+  p("We created this numerical variable by adding the number of adolescent women using traditional method and number of women using no method, and dividing the sum by the number of adolescents who are needing/wanting to avoid pregnancy"),
+  p(strong(em("% of women with less than four ANC visits")), ": Percent of women 15-19 with less than four ANC visits (antenatal care)"),
+  p(strong(em("% of women who did not deliver in a health facility")), ": Percent of women 15-19 who did not deliver in a health facility"),
+
+  br(),
+  
   a(h3(em("The World Bank: Gender Data Portal")), href = "https://genderdata.worldbank.org/topics/technology/"),
   
   tags$ul(
@@ -155,14 +152,20 @@ background_pg <- tabPanel("Background",
     online accounts across a multitude of countries.")
   ),
 
-  p("This dataset contains data sourced from a couple of sources. Including but not limited to, 
-  demographic and health surveys, the Global Findex database, UNESCO Institute for Statistics, 
-  International Monetary Fund, International Financial Statistics and data files., World Bank national 
-  accounts data, and OECD National Accounts data files., UNESCO Institute for Statistics (UIS). 
-  UIS.Stat Bulk Data Download Service., and WHO/UNICEF Joint Monitoring Programme (JMP) for Water 
-  Supply, Sanitation and Hygiene."),
+  p("This dataset incorporates data from various sources, such as demographic and health surveys, the Global Findex database, the UNESCO Institute for Statistics, the International Monetary Fund, the World Bank, the OECD National Accounts, and the WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation, and Hygiene."),
   
   br(),
+  
+  p("For our analysis, we performed a data merge using five different datasets that contained the following indicators for the female population and the year 2017:"),
+  p("1. Account ownership at a financial institution or with a mobile-money-service provider"),
+  p("2. Made or received digital payments in the past year"),
+  p("3. Used a mobile phone or the internet to access an account"),
+  p("4. Used a mobile phone or the internet to buy something online in the past year"),
+  p("5. Used a mobile phone or the internet to pay bills in the past year"),
+  p("From these data, we created two variables:"),
+  p(strong(em("Autonomy Levels")), ": This categorical variable indicates the level of online financial autonomy among female adolescents in each country. It is de rived by calculating the average of two indicators: %of women who made or received digital payments and % of women who have made online purchases. It ranges from below 10%, between 10-20%, between 20-30%, between 30-40%, between 40-50%, and over 50%."),
+  p(strong(em("Average % of Technology Access")), ": This variable represents the average percentage of technology and financial autonomy. It is computed by adding up the percentages of five technology indicators and then dividing the sum by 5."),
+  
   br(),
 
   a(h2(em("link to our github repository!")), href = "https://github.com/anyahiga10/Rino-AnyaFP.git"),
@@ -177,17 +180,12 @@ scatter_pg <- tabPanel("Outliers",
       selectInput(
         inputId = "choose_scatter",
         label = "Choose a Factor",
-        choices = colnames(df_for_plot[5:13]),
+        choices = colnames(df_for_plot[5:10]),
       ),
-      p("Through utilizing the scatter plot to discover
-              outliers one can evaluate the countries with
-              extreme differences between percentage of
-              technology autonomy and percentage of
-              maternal deaths due to unsafe abortions. 
-             In addition to seeing the outliers, by grouping 
-             the countries by region we can see a trend within 
-             the regions and also see how these factors can influence 
-             the bigger region of each country."),
+      p("By utilizing the scatter plot, we can analyze the relationship between the percentage of technology access and reproductive health outcomes.
+              countries that deviate significantly from the overall trend and serve as outliers. 
+             Additionally, grouping the countries by region enables us to explore specific narratives within each region and understand if there are any localized factors 
+             influencing the relationship between technology access and reproductive health outcomes."),
     ),
     mainPanel(
       plotlyOutput(
@@ -195,6 +193,12 @@ scatter_pg <- tabPanel("Outliers",
       ),
     ),
   ),
+  br(),
+  h3("Story"),
+  p("Notably, certain health indicators exhibit stronger correlations than others in the scatter plot analysis. For instance, when examining traditional/no method contraceptive usage, a strong negative correlation is evident. This implies that as technology access increases, there is a corresponding decrease in the percentage of women using non-modern contraceptive methods."),
+  p("Interestingly, a notable outlier is observed in the case of Maldives, represented by a dot in the upper right corner. Despite having a high percentage of average female technology access, the country shows a significant proportion (close to 90%) of women using traditional or no methods of birth control. This observation prompts us to consider additional factors such as tourism, which may provide greater online financial access but might not directly influence changes in traditional practices for women."),
+  p("Overall, these findings emphasize the importance of considering contextual factors and outliers when interpreting the strength and nuances of the correlations observed in the scatter plot analysis."),
+  br(),
 )
 
 box_pg <- tabPanel("Contrast",
@@ -206,17 +210,9 @@ box_pg <- tabPanel("Contrast",
       selectInput(
         inputId = "choose_box",
         label = "Choose a Factor",
-        choices = colnames(df_for_plot[5:13]),
+        choices = colnames(df_for_plot[5:10]),
       ),
-      p("For the box plot we can look at our 5
-              categories of autonomy levels and observe a
-              trend in how it may correlate with the amount of
-              women who use modern contraceptives with
-              the goal to prevent pregnancy. We can look at
-              the graph and the two extremes show a very
-              insightful story. The higher the technology
-              autonomy levels are the higher use of modern
-              birth control methods are."),
+      p("The box plot contrasts the levels of technology/financial autonomy and visually compares the distribution of numerical value for a reproductive health indicator. The box plots illustrate the center, spread, and presence of outliers within each autonomy level, enabling us to identify trends and disparities."),
     ),
     mainPanel(
       plotlyOutput(
@@ -224,6 +220,9 @@ box_pg <- tabPanel("Contrast",
       ),
     ),
   ),
+  br(),
+  h3("Story"),
+  p("The analysis of unintended pregnancies in relation to technology/financial autonomy levels reveals intriguing findings. Countries with higher levels of autonomy (greater than 40%) exhibit a wider range of percentages for unintended pregnancies compared to countries with lower autonomy. Surprisingly, the data indicates that as financial autonomy increases, there is a corresponding increase in the percentage of unintended pregnancies in these countries. This challenges the assumption that higher autonomy is directly associated with lower rates of unintended pregnancies among women."),
 )
 
 bar_pg <- tabPanel("Zoom In",
@@ -240,7 +239,7 @@ bar_pg <- tabPanel("Zoom In",
       selectInput(
         inputId = "choose_bar",
         label = "Choose a factor",
-        choices = colnames(df_for_plot[5:13]),
+        choices = colnames(df_for_plot[5:10]),
       ),
       p("The use of a bar chart and multiple filters allowed us to use
               the \"zoom\" in data story type for a bar chart. In the bar chart: zoom in page,
@@ -256,6 +255,11 @@ bar_pg <- tabPanel("Zoom In",
       ),
     ),
   ),
+  br(),
+  h3("Story"),
+  p("Notably, when looking at the indicator ‘Total maternal deaths per 100,000 lives’, significant disparities are evident between a few countries and the rest of their respective regions, except for Europe. 
+      However, for the majority of indicators, it is apparent that countries with autonomy levels of 10-20% or below consistently exhibit less desirable reproductive health outcomes across all regions."),
+  br(),
 )
 
 #ui and server stuff down

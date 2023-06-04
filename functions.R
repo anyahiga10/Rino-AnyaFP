@@ -10,9 +10,9 @@ get_viz <- function(viz_selection){
   if(viz_selection == "average technolgy vs"){
     return(tech_pct_vs_plot("% of maternal deaths due to unsafe abortions"))
   } else if(viz_selection == "countries vs"){
-    return(country_vs_plot("% of maternal deaths due to unsafe abortions", "Africa"))
+    return(country_vs_plot("Total maternal deaths per 100,000 live births", "Africa"))
   } else {
-    return(autonomy_vs_plot("% of modern contraceptive method use"))
+    return(autonomy_vs_plot("% of traditional/no contraceptive method use"))
   }
 }
 
@@ -28,23 +28,10 @@ get_viz_title <- function(viz_selection){
 
 get_viz_description <- function(viz_selection){
   if(viz_selection == "average technolgy vs"){
-    return(p("Through utilizing the scatter plot to discover
-              outliers one can evaluate the countries with
-              extreme differences between percentage of
-              technology autonomy and percentage of
-              maternal deaths due to unsafe abortions. We
-              can see here some Asian countries, such as,
-              Malaysia, Thailand, and Mongolia, tend to be
-              the extreme outliers with high percentage of
-              technology autonomy, however, also a high
-              maternal death rate with unsafe abortions. 
-             In addition to seeing the outliers, by grouping 
-             the countries by region we can see a trend within 
-             the regions and also see how these factors can influence 
-             the bigger region of each country. These outliers support 
-             the story that abortions are a taboo topic in a lot of countries 
-             in Southeast Asia, despite their high percentage of technology 
-             autonomy for women."))
+    return(p("By utilizing the scatter plot, we can analyze the relationship between the percentage of technology access and reproductive health outcomes.
+              countries that deviate significantly from the overall trend and serve as outliers. 
+             Additionally, grouping the countries by region enables us to explore specific narratives within each region and understand if there are any localized factors 
+             influencing the relationship between technology access and reproductive health outcomes."))
   } else if(viz_selection == "countries vs"){
     return(p("The use of a bar chart and multiple filters allowed us to use
               the \"zoom\" in data story type for a bar chart. In the bar chart: zoom in page,
@@ -54,22 +41,7 @@ get_viz_description <- function(viz_selection){
              a specific reproductive/sexual health factor. There are so many possibilities 
              to choose from and lots of stories that can come from them."))
   } else {
-    return(p("For the box plot we can look at our 5
-              categories of autonomy levels and observe a
-              trend in how it may correlate with the amount of
-              women who use modern contraceptives with
-              the goal to prevent pregnancy. We can look at
-              the graph and the two extremes show a very
-              insightful story. The higher the technology
-              autonomy levels are the higher use of modern
-              birth control methods are. This would make
-              sense because with more access to technology, 
-             the more informed adolescent women are, and the 
-             more they can seek out these modern birth control 
-             methods. we could also look at the outliers within 
-             this graph, similar to the last one, to look at what 
-             factors may contribute to the lack of reproductive 
-             information and safe resources."))
+    return(p("The box plot contrasts the levels of technology/financial autonomy and visually compares the distribution of numerical value for a reproductive health indicator. The box plots illustrate the center, spread, and presence of outliers within each autonomy level, enabling us to identify trends and disparities."))
   }
 }
 
